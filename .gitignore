@@ -13,6 +13,14 @@
 # testing
 /coverage
 
+# database
+/prisma/db.sqlite
+/prisma/db.sqlite-journal
+
+
+# prisma
+migrations
+
 # next.js
 /.next/
 /out/
