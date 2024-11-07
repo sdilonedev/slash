@@ -1,16 +1,27 @@
 import { Button } from "@/ui/button";
-import { ArrowRight } from "lucide-react";
+import { SlashSquareIcon } from "lucide-react";
+import Link from "next/link";
+import GithubIcon from "../icons/github";
+import CommandMenu from "../command/command-menu";
+import { ThemeToggle } from "../dropdowns/theme-toggle";
 
 export default function Header() {
   return (
-    <header className="fixed left-0 top-0 z-50 w-full animate-fade-in border-b backdrop-blur-lg">
-      <div className="container flex h-16 items-center justify-between px-4">
-        <a className="text-md flex items-center">Slash</a>
-        <div className="ml-auto flex h-full items-center">
-          <Button variant="outline" className="group">
-            Get started
-            <ArrowRight className="ml-1 size-4 transform transition-transform group-hover:translate-x-[2px]" />
+    <header className="flex w-full py-4 lg:px-5 sticky top-0 z-20 border-b bg-white dark:border-b-neutral-800 dark:bg-neutral-900">
+      <div className="flex justify-between w-full mx-auto px-4">
+        <div className="flex items-center space-x-5">
+          <Link href="/" className="flex items-center space-x-3 transition-opacity hover:opacity-80">
+            <SlashSquareIcon className="size-4" />
+            <span className="self-center text-lg font-medium tracking-tighter dark:text-white font-mono">slash</span>
+          </Link>
+        </div>
+
+        <div className="flex items-center space-x-1">
+          <CommandMenu />
+          <Button variant="ghost" size="icon">
+            <GithubIcon />
           </Button>
+          <ThemeToggle />
         </div>
       </div>
     </header>
