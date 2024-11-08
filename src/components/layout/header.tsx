@@ -4,6 +4,7 @@ import Link from "next/link";
 import GithubIcon from "../icons/github";
 import CommandMenu from "../command/command-menu";
 import { ThemeToggle } from "../dropdowns/theme-toggle";
+import UserButton from "../auth/user-button";
 
 export default function Header() {
   return (
@@ -22,6 +23,7 @@ export default function Header() {
             <GithubIcon />
           </Button>
           <ThemeToggle />
+          <UserButton />
         </div>
       </div>
     </header>
