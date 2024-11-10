@@ -20,7 +20,7 @@ export default async function UserButton() {
   if (!session?.user)
     return (
       <Link
-        href="/dashboard"
+        href="/auth"
         className={buttonVariants({
           variant: "outline",
           className: "group",
@@ -36,6 +36,7 @@ export default async function UserButton() {
       <DropdownMenu>
         <DropdownMenuTrigger
           name={session.user.name ?? "User Menu"}
+          key={session.user.name}
           className={buttonVariants({
             variant: "ghost",
             size: "icon",
