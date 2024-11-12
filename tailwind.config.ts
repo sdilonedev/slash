@@ -53,7 +53,14 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+			container: {
+				center: true,
+				padding: "1rem",
+				screens: {
+					"2xl": "1440px"
+				}
+			}
   	}
   },
   plugins: [require("tailwindcss-animate")],
