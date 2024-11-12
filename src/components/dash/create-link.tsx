@@ -45,7 +45,8 @@ import { addDays, format } from "date-fns"
 import { z } from "zod"
 
 interface CreateLinkProps {
-  children: React.ReactNode
+  children: React.ReactNode;
+  search?: string
 }
 
 export default function CreateLink(props: CreateLinkProps) {
@@ -58,7 +59,7 @@ export default function CreateLink(props: CreateLinkProps) {
     resolver: zodResolver(CreateLinkSchema),
     defaultValues: {
       originalUrl: "",
-      shortCode: "",
+      shortCode: props.search ?? "",
       description: "",
     },
   });
@@ -76,18 +77,16 @@ export default function CreateLink(props: CreateLinkProps) {
 
       const shortCodeAvailable = await isShortCodeAvailable(values.shortCode);
 
-      if (!shortCodeAvailable) {
+      if (shortCodeAvailable) {
         toast.error(
           "The short link is already exist. Write another or generate a random shortcode.",
         );
         return;
       }
       
-      console.log(values)
       const result = await createShortLink(values);
-
-      if (result.errorMessage && result.isLimitReached) {
-        toast.info(result.errorMessage);
+      if (result.error && result.limit) {
+        toast.info(result.error);
         return;
       }
 

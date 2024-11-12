@@ -31,6 +31,27 @@ export const getLinkById = async (linkId: string) => {
   }
 };
 
+
+export const getLinksByUser = async () => {
+  try {
+    const user = await auth();
+    if (!user) {
+      console.error("User is not authenticated.");
+      throw new Error("Authentication required. Please log in.");
+    }
+
+    const linkData = await db.links.findMany({ where: { userId: user.user.id } });
+
+    return {
+      limit: user.user?.limitLinks,
+      links: linkData
+    };
+  } catch (error) {
+    console.error("Failed to fetch the links from this user:", error);
+    return null;
+  }
+}
+
 /**
  * Check if a shortcode (slug) is already in use.
  * @param shortCode - The shortcode of the link
@@ -45,46 +66,51 @@ export const isShortCodeAvailable = async (shortCode: string): Promise<boolean> 
   return false;
 };
 
-/**
- * Create a new short link.
- * @param formData - The input data from the form
- * @returns An object with the result of the operation
- */
+
+interface createLinkResult {
+  limit?: boolean;
+  error?: string;
+  linkId?: string;
+}
+
 export const createShortLink = async (
-  formData: z.infer<typeof CreateLinkSchema>
-): Promise<{ isLimitReached?: boolean; errorMessage?: string; newLinkId?: string }> => {
-  try {
-    const currentUser = await getAuthenticatedUser();
-    const { id: userId, limitLinks } = currentUser.user;
+  values: z.infer<typeof CreateLinkSchema>,
+): Promise<createLinkResult> => {
+  const currentUser = await auth();
 
-    // Check if the user has reached their link creation limit
-    const userLinkCount = await db.links.count({ where: { userId: userId } });
-    if (userLinkCount >= limitLinks) {
-      return {
-        isLimitReached: true,
-        errorMessage: `You have reached your limit of ${limitLinks} links.`,
-      };
-    }
-    // Create the new link
-    const newLink = await db.links.create({
-      data: { 
-        userId: userId,
-        originalUrl: formData.originalUrl,
-        shortCode: formData.shortCode,
-        expirationDate: formData.expirationDate,
-        description: formData.description
-      },
-    });
-
-    // Revalidate paths to update the data
-    revalidatePath("/");
-    revalidatePath("/dashboard");
-
-    return { newLinkId: newLink.id };
-  } catch (error) {
-    console.error("Error while creating the link:", error);
-    return { errorMessage: "An error occurred while creating the link." };
+  if (!currentUser) {
+    console.error("Not authenticated.");
+    return { error: "Not authenticated. Please login again." };
   }
+
+  // Get number of links created by the user:
+  const count = await db.links.count({
+    where: {
+      userId: currentUser.user?.id,
+    },
+  });
+
+  // Check if the user has reached the limit:
+  const limit = currentUser.user?.limitLinks;
+  if (count >= limit) {
+    return {
+      limit: true,
+      error: `You have reached the limit of ${limit} links.`,
+    };
+  }
+
+  // Create new link:
+  const result = await db.links.create({
+    data: {
+      ...values,
+      userId: currentUser.user?.id,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/dashboard");
+
+  return { limit: false, linkId: result.id };
 };
 
 /**

@@ -10,28 +10,29 @@ import { ThemeToggle } from "../dropdowns/theme-toggle";
 
 export default function DashHeader() {
   return (
-    <header className="flex w-full px-4 py-4 lg:py-5 justify-between items-center gap-2 border-b bg-white dark:border-b-neutral-800 dark:bg-neutral-900">
-      <div className="flex items-center px-4">
-        <Link href="/" className="flex items-center space-x-3 transition-opacity hover:opacity-80">
-          <SlashSquareIcon className="size-4" />
-          <span className="self-center text-lg font-medium tracking-tighter dark:text-white font-mono">slash</span>
-        </Link>
-      </div>
+    <header className="flex w-full pb-3 pt-4 lg:px-4 sticky top-0 z-50 bg-white dark:bg-neutral-900">
+      <div className="flex items-center justify-between mx-auto container w-full">
+        <div className="flex items-center space-x-1">
+          <Link href="/" className="flex items-center space-x-3 transition-opacity hover:opacity-80">
+            <SlashSquareIcon className="size-4" />
+            <span className="self-center text-lg font-medium tracking-tighter dark:text-white font-mono">slash</span>
+          </Link>
+        </div>
 
-      {/* Input desktop */}
-      <div className="hidden w-1/3 items-center gap-2 px-4 md:flex">
-        <InputLinks className="w-full" />
-      </div>
+        {/* Input desktop */}
+        <div className="hidden w-1/3 items-center gap-2 md:flex">
+          <InputLinks className="w-full" />
+        </div>
 
-      <div className="flex items-center gap-2 px-4">
-        <CommandMenu />
-        <Button variant="ghost" size="icon">
-          <GithubIcon />
-        </Button>
-        <ThemeToggle />
-        <UserButton />
+        <div className="flex items-center gap-2 space-x-1">
+          <CommandMenu />
+          <Button variant="ghost" size="icon">
+            <GithubIcon />
+          </Button>
+          <ThemeToggle />
+          <UserButton />
+        </div>
       </div>
-
     </header>
   )
 }
