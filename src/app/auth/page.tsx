@@ -15,7 +15,7 @@ export default function AuthLoginPage() {
           Log in
         </CardTitle>
         <CardDescription className="duration-500 animate-in fade-in-30">
-          Log in with your Github account:
+          Log in with your Github or Google account:
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4 duration-500 animate-in fade-in-30">
