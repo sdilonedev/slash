@@ -21,6 +21,7 @@ model Links {
   userId         String
   createBy       User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
   clickCount     Int         @default(0)
+  lastClicked    DateTime?
   urlClicks      UrlClicks[]
   createdAt      DateTime    @default(now())
   expirationDate DateTime

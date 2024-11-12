@@ -1,4 +1,4 @@
-import InfoLink from "@/components/auth/info-link";
+import InfoLink from "@/components/dash/info-link";
 import CreateLink from "@/components/dash/create-link";
 import InputLinks from "@/components/dash/input-links";
 import LinkLimit from "@/components/dash/link-limit";
@@ -23,7 +23,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
     <div className="w-full">
       <div className="md:hidden w-full flex my-3 items-center space-x-2 md:justify-between lg:px-4">
         <InputLinks className="w-full flex" />
-        <LinkLimit userLinks={20} maxLinks={30} />
+        <LinkLimit userLinks={data.links.length} maxLinks={data.limit} />
         <CreateLink>
           <Button variant="outline">
             <PlusIcon size={15} />
