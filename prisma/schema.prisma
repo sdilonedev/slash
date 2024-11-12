@@ -23,7 +23,7 @@ model Links {
   clickCount     Int         @default(0)
   urlClicks      UrlClicks[]
   createdAt      DateTime    @default(now())
-  expirationDate DateTime?
+  expirationDate DateTime
 
   @@index([userId, shortCode])
 }
