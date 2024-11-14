@@ -60,7 +60,7 @@ export default async function UserButton() {
           <DropdownMenuSeparator />
           {MenuItems.map((item) => (
             <>
-              <DropdownMenuItem>
+              <DropdownMenuItem key={item.href}>
                 <Link className="flex flex-row gap-2" href={item.href}>
                   <item.icon size={16} />
                   <span>{item.name}</span>
