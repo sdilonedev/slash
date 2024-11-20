@@ -1,7 +1,7 @@
 "use client";
 
 import type { Links } from "@prisma/client";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import type { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,7 @@ import {
   DialogTrigger,
 } from "@/ui/dialog";
 import { Button } from "@/ui/button";
-import { LoaderIcon, LockIcon, LockOpenIcon, SaveIcon } from "lucide-react";
+import { EditIcon, LoaderIcon, LockIcon, LockOpenIcon, SaveIcon } from "lucide-react";
 import { Alert } from "@/ui/alert";
 import {
   Form,
@@ -36,7 +36,6 @@ import { updateShortLink } from "@/server/actions/link";
 import { Textarea } from "@/ui/textarea";
 
 interface EditLinkProps {
-  trigger: ReactNode;
   link: Links;
 }
 
@@ -90,7 +89,11 @@ const EditLink = (props: EditLinkProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{props.trigger}</DialogTrigger>
+      <DialogTrigger asChild>
+        <button className="transition-opacity hover:opacity-75">
+          <EditIcon size={16} />
+        </button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader className="overflow-hidden">
           <DialogTitle>Edit link</DialogTitle>

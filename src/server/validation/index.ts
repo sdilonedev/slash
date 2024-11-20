@@ -61,6 +61,10 @@ export const EditLinkSchema = z.object({
     }),
 });
 
+export const DeleteLinkSchema = z.object({
+  shortCode: z.string().min(1, { message: "Shortcode is required." }),
+});
+
 export type LinkSchema = z.TypeOf<typeof LinkSchema>;
 export type CreateLinkInput = z.TypeOf<typeof CreateLinkSchema>;
 export type EditLinkInput = z.TypeOf<typeof EditLinkSchema>;

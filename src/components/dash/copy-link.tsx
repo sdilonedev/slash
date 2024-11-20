@@ -2,8 +2,7 @@
 
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { toast } from "sonner";
-import { ClipboardIcon } from "lucide-react";
-import { Button } from "@/ui/button";
+import { CopyIcon } from "lucide-react";
 
 interface CopyLinkProps {
   slug: string;
@@ -32,8 +31,8 @@ export default function CopyLinkButton(props: CopyLinkProps) {
   };
 
   return (
-    <button className="transition-opacity hover:opacity-75" onClick={handleCopy(`${url}/${props.slug}`)}>
-      <ClipboardIcon size={15} />
+    <button className="p-1 ml-1 text-gray-500 hover:text-gray-200 transition-colors duration-200" onClick={handleCopy(`${url}/${props.slug}`)}>
+      <CopyIcon size={15} />
     </button>
   );
 };

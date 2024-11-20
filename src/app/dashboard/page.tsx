@@ -10,9 +10,9 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
   const data = await getLinksByUser();
   const search = await searchParams.search
 
-  if (!data) {
-    return <div>Error</div>
-  };
+if (!data) {
+  return <div>Error</div>
+};
 
   const filteredLinks = data.links.filter((link) => {
     if (!search) return true;
@@ -33,7 +33,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
       </div>
 
 
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
         {filteredLinks
           .sort((a, b) => {
             return (
