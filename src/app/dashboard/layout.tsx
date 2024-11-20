@@ -2,10 +2,16 @@ import DashBreadcrumbs from "@/components/dash/breadcrumbs";
 import CreateLink from "@/components/dash/create-link";
 import LinkLimit from "@/components/dash/link-limit";
 import DashHeader from "@/components/layout/dash-header";
+import { getLinksByUser } from "@/server/actions/link";
 import { Button } from "@/ui/button";
 import { PlusIcon } from "lucide-react";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const data = await getLinksByUser();
+
+  if (!data) {
+    return <div>Error</div>
+  }
   return (
     <>
       <DashHeader />
@@ -16,7 +22,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <DashBreadcrumbs />
             </div>
             <div className="hidden md:flex items-center space-x-2">
-              <LinkLimit userLinks={29} maxLinks={30} />
+              <LinkLimit userLinks={data?.links.length} maxLinks={data?.limit} />
               <CreateLink>
                 <Button variant="outline">
                   <PlusIcon size={15} />

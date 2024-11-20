@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/ui/button";
 import {
   Tooltip,
@@ -16,15 +17,6 @@ export default function LinkLimit({ userLinks, maxLinks }: LinkLimitProps) {
   const isMaxLimit = userLinks >= maxLinks;
   const isHalfLimit = userLinks >= maxLinks / 2;
 
-  const formattedUserLinks = userLinks.toString().padStart(2, "0");
-  const formattedMaxLinks = maxLinks.toString().padStart(2, "0");
-
-  const textColor = isMaxLimit
-    ? "text-red-500"
-    : isHalfLimit
-    ? "text-yellow-500"
-    : "dark:text-white text-black";
-
   const icon = isMaxLimit ? <TriangleAlertIcon size={14} /> : <PackageIcon size={14} />;
 
   const tooltipMessage = isMaxLimit
@@ -41,10 +33,18 @@ export default function LinkLimit({ userLinks, maxLinks }: LinkLimitProps) {
               className: "cursor-default font-mono shadow-none px-4 py-2"
             })}
           >
-            <div className={`flex items-center space-x-2 ${textColor}`}>
+            <div className={cn(
+              "flex items-center space-x-2",
+              isHalfLimit
+                ? "text-yellow-500" : "",
+              isMaxLimit ? "text-red-500" : "",
+              "flex items-center space-x-2"
+            )}>
               {icon}
               <span className="font-semibold">
-                {formattedUserLinks}/{formattedMaxLinks}
+                {userLinks < 10 ? `0${userLinks}` : userLinks}
+                /
+                {maxLinks < 10 ? `0${maxLinks}` : maxLinks}
               </span>
             </div>
           </div>
