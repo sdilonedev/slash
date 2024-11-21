@@ -22,15 +22,17 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
   });
   return (
     <div className="w-full">
-      <div className="md:hidden w-full flex my-3 items-center space-x-2 md:justify-between lg:px-4">
-        <InputLinks className="w-full flex" />
-        <LinkLimit userLinks={data.links.length} maxLinks={data.limit} />
-        <CreateLink>
-          <Button variant="outline">
-            <PlusIcon size={15} />
-            <span className="hidden md:flex">Create Link</span>
-          </Button>
-        </CreateLink>
+      <div className="w-full flex my-3 items-center space-x-2 md:justify-between">
+        <InputLinks className="w-full md:w-72 md:max-w-72" />
+        <div className="flex items-center space-x-2">
+          <LinkLimit userLinks={data.links.length} maxLinks={data.limit} />
+          <CreateLink>
+            <Button variant="outline">
+              <PlusIcon size={15} />
+              <span className="hidden md:flex">Create Link</span>
+            </Button>
+          </CreateLink>
+        </div>
       </div>
 
 

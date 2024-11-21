@@ -5,6 +5,7 @@ import type { CreateLinkSchema, EditLinkSchema } from "@/server/validation";
 import { auth } from "@/auth";
 import db from "@/server/db";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 /** Helper function to verify user authentication */
 const getAuthenticatedUser = async () => {
@@ -32,7 +33,7 @@ export const getLinkById = async (linkId: string) => {
 };
 
 
-export const getLinksByUser = async () => {
+export const getLinksByUser = cache(async () => {
   try {
     const user = await auth();
     if (!user) {
@@ -50,7 +51,7 @@ export const getLinksByUser = async () => {
     console.error("Failed to fetch the links from this user:", error);
     return null;
   }
-}
+})
 
 /**
  * Check if a shortcode (slug) is already in use.

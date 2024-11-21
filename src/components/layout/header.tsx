@@ -8,7 +8,7 @@ import UserButton from "../auth/user-button";
 
 export default function Header() {
   return (
-    <header className="flex w-full py-4 lg:px-5 sticky top-0 z-20 border-b bg-white dark:border-b-neutral-800 dark:bg-neutral-900">
+    <header className="flex w-full py-4 lg:px-5 sticky top-0 z-20 bg-white dark:border-b-neutral-800 dark:bg-neutral-900">
       <div className="flex justify-between w-full mx-auto container">
         <div className="flex items-center space-x-5">
           <Link href="/" className="flex items-center space-x-3 transition-opacity hover:opacity-80">
