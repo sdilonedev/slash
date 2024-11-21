@@ -20,6 +20,8 @@
 
 # prisma
 migrations
+dev.db
+dev.db-journal
 
 # next.js
 /.next/
